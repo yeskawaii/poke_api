@@ -7,7 +7,7 @@ interface PokemonInputProps {
 
 interface PokemonSuggestion {
   name: string;
-  url: string;
+  image: string;
 }
 
 const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
@@ -19,30 +19,51 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
   // Obtener la lista completa de Pokémon solo una vez al cargar el componente
   useEffect(() => {
     const fetchAllPokemons = async () => {
-      setIsLoading(true);
-      try {
-        const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1025"); // Obtén hasta 1025 Pokémon
-        setAllPokemons(response.data.results);
-      } catch (error) {
-        console.error("Error al obtener la lista de Pokémon:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchAllPokemons();
+        setIsLoading(true);
+        try {
+          const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1000"); // Obtén hasta 1000 Pokémon
+          const pokemonData = response.data.results;
+  
+          // Obtener la imagen de cada Pokémon
+          const pokemonWithImages = await Promise.all(
+            pokemonData.map(async (pokemon: { name: string; url: string }) => {
+              const pokemonDetails = await axios.get(pokemon.url);
+              return {
+                name: pokemon.name,
+                image: pokemonDetails.data.sprites.front_default,
+              };
+            })
+          );
+  
+          setAllPokemons(pokemonWithImages);
+        } catch (error) {
+          console.error("Error al obtener la lista de Pokémon:", error);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+  
+      fetchAllPokemons();
   }, []);
+
  // Filtrar las sugerencias según el texto del input
  useEffect(() => {
     if (inputValue.length >= 2) {
       const filteredSuggestions = allPokemons.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(inputValue.toLowerCase())
       );
-      setSuggestions(filteredSuggestions);
+  
+      // Mostrar sugerencias solo si el input no coincide con ninguna sugerencia
+      if (!filteredSuggestions.some(suggestion => suggestion.name === inputValue.toLowerCase())) {
+        setSuggestions(filteredSuggestions);
+      } else {
+        setSuggestions([]);  // Si el input coincide con el nombre de un Pokémon, ocultar sugerencias
+      }
     } else {
-      setSuggestions([]);
+      setSuggestions([]); // Ocultar sugerencias si el input está vacío o tiene menos de 2 caracteres
     }
   }, [inputValue, allPokemons]);
+  
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -57,35 +78,41 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
   };
 
   const handleSuggestionClick = (name: string) => {
+    setSuggestions([]); // Limpiar las sugerencias
     setInputValue(name);
     onSubmit(name); // Actualizar los detalles del Pokémon
-    setSuggestions([]); // Limpiar las sugerencias
   };
   
   return (
-    <div>
+    <div className="pokemon-input-container">
       <form onSubmit={handleSubmit}>
         <input
           type="text"
           value={inputValue}
           onChange={handleChange}
-          placeholder="Ingresa el nombre de un Pokémon"
+          placeholder="Busca un Pokémon..."
+          className="pokemon-input"
         />
-        <button type="submit">Buscar</button>
+        <button type="submit" className="pokemon-input-btn">
+          Buscar
+        </button>
       </form>
+
       {isLoading && <p>Cargando sugerencias...</p>}
+
       {suggestions.length > 0 && (
-        <ul>
+        <ul className="suggestions-list">
           {suggestions.map((suggestion) => (
             <li
               key={suggestion.name}
               onClick={() => handleSuggestionClick(suggestion.name)}
-              style={{
-                cursor: "pointer",
-                padding: "5px",
-                borderBottom: "1px solid #ccc",
-              }}
+              className="suggestion-item"
             >
+              <img
+                src={suggestion.image}
+                alt={suggestion.name}
+                className="suggestion-icon"
+              />
               {suggestion.name}
             </li>
           ))}
