@@ -21,7 +21,7 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
     const fetchAllPokemons = async () => {
       setIsLoading(true);
       try {
-        const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1000"); // Obtén hasta 1000 Pokémon
+        const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1025"); // Obtén hasta 1025 Pokémon
         setAllPokemons(response.data.results);
       } catch (error) {
         console.error("Error al obtener la lista de Pokémon:", error);
