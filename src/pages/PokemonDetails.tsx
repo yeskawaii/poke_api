@@ -48,7 +48,9 @@ const PokemonDetailsPage: React.FC = () => {
             <div>
               <h3>Macho</h3>
               <img src={pokemon.sprites.front_default} alt={`${pokemon.name} front`} />
-              <img src={pokemon.sprites.back_default} alt={`${pokemon.name} back`} />
+              {pokemon.sprites.back_default && (
+                <img src={pokemon.sprites.back_default} alt={`${pokemon.name} back`} />
+              )}
               {pokemon.sprites.front_shiny && (
                 <img src={pokemon.sprites.front_shiny} alt={`${pokemon.name} front shiny`} />
               )}
