@@ -21,7 +21,7 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
     const fetchAllPokemons = async () => {
       setIsLoading(true);
       try {
-        const response = await getPokemons(1025); // Obtener hasta 1000 Pokémon
+        const response = await getPokemons(1025); // Obtener hasta 1025 Pokémon
         const pokemonData = response.results;
 
         // Obtener la imagen de cada Pokémon
