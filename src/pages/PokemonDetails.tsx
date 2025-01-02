@@ -5,7 +5,7 @@ import PokemonInput from "../components/pokemonInput";
 const PokemonDetailsPage: React.FC = () => {
   const [pokemon, setPokemon] = useState<PokemonDetails | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [pokemonName, setPokemonName] = useState<string>("pikachu");
+  const [pokemonName, setPokemonName] = useState<string>("pikachu"); // Pokémon por defecto
 
   const fetchPokemon = async (name: string) => {
     try {
@@ -19,6 +19,7 @@ const PokemonDetailsPage: React.FC = () => {
     }
   };
 
+  // Cargar Pokémon al cambiar el nombre
   useEffect(() => {
     fetchPokemon(pokemonName);
   }, [pokemonName]);
