@@ -99,3 +99,34 @@
   margin-right: 10px;
   border-radius: 50%;
 }
+
+/* Estilos generales para las imágenes */
+.sprites img {
+  width: 200px; /* Aumenta el tamaño de las imágenes */
+  height: auto; /* Mantiene la proporción de la imagen */
+  margin: 10px; /* Espaciado entre imágenes */
+  border-radius: 8px; /* Bordes redondeados */
+}
+
+/* Sección de imágenes de Macho */
+.sprites > div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Centra las imágenes */
+  margin-bottom: 30px; /* Espaciado debajo de cada grupo de imágenes */
+}
+
+/* Sección de imágenes de Hembra (ocultarlas si no existen imágenes) */
+.female-images {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Hacer que las imágenes en la sección de hembra sean más grandes */
+.female-images img {
+  width: 200px; /* Aumenta el tamaño de las imágenes */
+  height: auto;
+  margin: 10px;
+  border-radius: 8px;
+}

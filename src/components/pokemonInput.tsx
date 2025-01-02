@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { getPokemons, getPokemonDetails } from "../api/pokeApi"; // Importar las funciones de la API
 
 interface PokemonInputProps {
   onSubmit: (pokemonName: string) => void;
@@ -19,40 +19,40 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
   // Obtener la lista completa de Pokémon solo una vez al cargar el componente
   useEffect(() => {
     const fetchAllPokemons = async () => {
-        setIsLoading(true);
-        try {
-          const response = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1000"); // Obtén hasta 1000 Pokémon
-          const pokemonData = response.data.results;
-  
-          // Obtener la imagen de cada Pokémon
-          const pokemonWithImages = await Promise.all(
-            pokemonData.map(async (pokemon: { name: string; url: string }) => {
-              const pokemonDetails = await axios.get(pokemon.url);
-              return {
-                name: pokemon.name,
-                image: pokemonDetails.data.sprites.front_default,
-              };
-            })
-          );
-  
-          setAllPokemons(pokemonWithImages);
-        } catch (error) {
-          console.error("Error al obtener la lista de Pokémon:", error);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-  
-      fetchAllPokemons();
+      setIsLoading(true);
+      try {
+        const response = await getPokemons(1025); // Obtener hasta 1000 Pokémon
+        const pokemonData = response.results;
+
+        // Obtener la imagen de cada Pokémon
+        const pokemonWithImages = await Promise.all(
+          pokemonData.map(async (pokemon: { name: string; url: string }) => {
+            const pokemonDetails = await getPokemonDetails(pokemon.name);
+            return {
+              name: pokemon.name,
+              image: pokemonDetails.sprites.front_default,
+            };
+          })
+        );
+
+        setAllPokemons(pokemonWithImages);
+      } catch (error) {
+        console.error("Error al obtener la lista de Pokémon:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAllPokemons();
   }, []);
 
- // Filtrar las sugerencias según el texto del input
- useEffect(() => {
+  // Filtrar las sugerencias según el texto del input
+  useEffect(() => {
     if (inputValue.length >= 2) {
       const filteredSuggestions = allPokemons.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(inputValue.toLowerCase())
       );
-  
+
       // Mostrar sugerencias solo si el input no coincide con ninguna sugerencia
       if (!filteredSuggestions.some(suggestion => suggestion.name === inputValue.toLowerCase())) {
         setSuggestions(filteredSuggestions);
@@ -63,7 +63,6 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
       setSuggestions([]); // Ocultar sugerencias si el input está vacío o tiene menos de 2 caracteres
     }
   }, [inputValue, allPokemons]);
-  
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -82,7 +81,7 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
     setInputValue(name);
     onSubmit(name); // Actualizar los detalles del Pokémon
   };
-  
+
   return (
     <div className="pokemon-input-container">
       <form onSubmit={handleSubmit}>
