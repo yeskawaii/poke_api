@@ -5,6 +5,50 @@
   text-align: center;
 }
 
+.pokedex {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #e63946, #f1faee);
+  border: 8px solid #1d3557;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  text-align: center;
+}
+
+.pokedex-header {
+  padding: 15px;
+  border-radius: 15px;
+  color: #f1faee;
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.pokemon-name {
+  font-size: 1.8rem;
+  color: #ffcb05;
+  text-transform: capitalize;
+  margin-bottom: 10px;
+  border-bottom: 2px solid #ffcb05;
+  padding-bottom: 5px;
+}
+
+.error-message {
+  font-size: 1.2rem;
+  color: #e63946;
+}
+
+.loading-screen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -100,6 +144,23 @@
   border-radius: 50%;
 }
 
+.sprites img {
+  width: 120px;
+  height: auto;
+  margin: 5px;
+  border-radius: 10px;
+  border: 2px solid #457b9d;
+  background: #f1faee;
+}
+
+.sprites {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+  justify-content: center;
+}
+
+
 /* Estilos generales para las imágenes */
 .sprites img {
   width: 200px; /* Aumenta el tamaño de las imágenes */
@@ -129,4 +190,52 @@
   height: auto;
   margin: 10px;
   border-radius: 8px;
+}
+
+.pokedex-controls {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.sprites-section h3 {
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  margin-bottom: 15px;
+  background: #ffcb05;
+  color: #1d3557;
+  padding: 5px 15px;
+  border-radius: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Contenedor de las imágenes para organizar en una fila */
+.sprites-section div {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; /* Permite que las imágenes bajen si no hay espacio horizontal */
+  gap: 10px; /* Espacio entre imágenes */
+}
+
+/* Estilo de las imágenes */
+.sprites-section img {
+  width: 150px;
+  height: auto;
+  margin: 5px;
+  border-radius: 10px;
+  border: 2px solid rgba(255, 255, 255, 0.7); /* Borde blanco semitransparente */
+  background: rgba(255, 255, 255, 0.2); /* Fondo blanco muy tenue */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Efecto hover en imágenes */
+.sprites-section img:hover {
+  transform: scale(1.1);
+  animation: transform 2 timing-function delay iteration-count direction fill-mode;
+  box-shadow: 0 0 10px rgba(255, 203, 5, 0.8);
+}
+
+.pokedex-screen {
+   background-color: #457b9d;
 }

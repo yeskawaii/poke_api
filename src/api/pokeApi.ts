@@ -16,12 +16,30 @@ export interface PokemonDetails {
   };
 }
 
-export const getPokemons = async (limit = 20, offset = 0) => {
-  const response = await axios.get(`${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`);
-  return response.data;
+export interface PokemonSuggestion {
+  name: string;
+  image: string;
+}
+
+// fuinction to get all pokemons
+export const getPokemons = async (limit = 20, offset = 0): Promise<PokemonSuggestion[]> => {
+  try {
+    const response = await axios.get(`${BASE_URL}/pokemon?limit=${limit}&offset=${offset}`);
+    return response.data.results;
+  } catch (error) {
+    console.error("Error al obtener los Pokémon:", error);
+    throw new Error("No se pudieron obtener los Pokémon.");
+  }
 };
 
+
+// fucntion to get specific pokemon
 export const getPokemonDetails = async (name: string): Promise<PokemonDetails> => {
-  const response = await axios.get<PokemonDetails>(`${BASE_URL}/pokemon/${name}`);
-  return response.data;
+  try {
+    const response = await axios.get(`${BASE_URL}/pokemon/${name}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener detalles del Pokémon:", error);
+    throw new Error("No se pudo obtener los detalles del Pokémon.");
+  }
 };

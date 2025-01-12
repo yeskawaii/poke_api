@@ -16,17 +16,17 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
   const [allPokemons, setAllPokemons] = useState<PokemonSuggestion[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Obtener la lista completa de Pokémon solo una vez al cargar el componente
+  // gel all pokemon to charge the component
   useEffect(() => {
     const fetchAllPokemons = async () => {
       setIsLoading(true);
       try {
-        const response = await getPokemons(1025); // Obtener hasta 1025 Pokémon
-        const pokemonData = response.results;
+        const response = await getPokemons(1025); // get 1025 pokemons
+        const pokemonData = response;
 
-        // Obtener la imagen de cada Pokémon
+        //get image from pokemon
         const pokemonWithImages = await Promise.all(
-          pokemonData.map(async (pokemon: { name: string; url: string }) => {
+          pokemonData.map(async (pokemon: { name: string; image: string }) => {
             const pokemonDetails = await getPokemonDetails(pokemon.name);
             return {
               name: pokemon.name,
@@ -46,21 +46,21 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
     fetchAllPokemons();
   }, []);
 
-  // Filtrar las sugerencias según el texto del input
+  // filter for the input
   useEffect(() => {
     if (inputValue.length >= 2) {
       const filteredSuggestions = allPokemons.filter((pokemon) =>
         pokemon.name.toLowerCase().includes(inputValue.toLowerCase())
       );
 
-      // Mostrar sugerencias solo si el input no coincide con ninguna sugerencia
+      // show the suggestions
       if (!filteredSuggestions.some(suggestion => suggestion.name === inputValue.toLowerCase())) {
         setSuggestions(filteredSuggestions);
       } else {
-        setSuggestions([]);  // Si el input coincide con el nombre de un Pokémon, ocultar sugerencias
+        setSuggestions([]);
       }
     } else {
-      setSuggestions([]); // Ocultar sugerencias si el input está vacío o tiene menos de 2 caracteres
+      setSuggestions([]); // show this if at least 2 letters or not a white space
     }
   }, [inputValue, allPokemons]);
 
@@ -68,7 +68,7 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
     event.preventDefault();
     if (inputValue.trim() !== "") {
       onSubmit(inputValue);
-      setSuggestions([]); // Limpiar las sugerencias después de enviar
+      setSuggestions([]); 
     }
   };
 
@@ -77,9 +77,9 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
   };
 
   const handleSuggestionClick = (name: string) => {
-    setSuggestions([]); // Limpiar las sugerencias
+    setSuggestions([]); // clean the suggestion
     setInputValue(name);
-    onSubmit(name); // Actualizar los detalles del Pokémon
+    onSubmit(name); // Update pokemon
   };
 
   return (
