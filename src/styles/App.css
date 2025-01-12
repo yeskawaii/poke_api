@@ -24,9 +24,16 @@
   }
 
   .pokedex {
-    width: 80vw;
+    width: auto;
+    min-height: 100vh;
     border-radius: 0;
     padding: 10px;
+  }
+
+  #root{
+    padding: 0;
+    margin: 0;
+    width: 100vw;
   }
 }
 
@@ -157,29 +164,11 @@
   border-radius: 50%;
 }
 
-.sprites img {
-  width: 120px;
-  height: auto;
-  margin: 5px;
-  border-radius: 10px;
-  border: 2px solid #457b9d;
-  background: #f1faee;
-}
-
 .sprites {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 10px;
   justify-content: center;
-}
-
-
-/* Estilos generales para las imágenes */
-.sprites img {
-  width: 200px; /* Aumenta el tamaño de las imágenes */
-  height: auto; /* Mantiene la proporción de la imagen */
-  margin: 10px; /* Espaciado entre imágenes */
-  border-radius: 8px; /* Bordes redondeados */
 }
 
 /* Sección de imágenes de Macho */
@@ -195,14 +184,6 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-/* Hacer que las imágenes en la sección de hembra sean más grandes */
-.female-images img {
-  width: 200px; /* Aumenta el tamaño de las imágenes */
-  height: auto;
-  margin: 10px;
-  border-radius: 8px;
 }
 
 .pokedex-controls {
@@ -237,16 +218,17 @@
   height: auto;
   margin: 5px;
   border-radius: 10px;
-  border: 2px solid rgba(255, 255, 255, 0.7); /* Borde blanco semitransparente */
-  background: rgba(255, 255, 255, 0.2); /* Fondo blanco muy tenue */
+/*   border: 2px solid rgba(255, 255, 255, 0.7); 
+  background: rgba(255, 255, 255, 0.2); */
   transition: transform 0.3s ease-in-out;
 }
 
 /* Efecto hover en imágenes */
 .sprites-section img:hover {
-  transform: scale(1.1);
-  animation: transform 2 timing-function delay iteration-count direction fill-mode;
-  box-shadow: 0 0 10px rgba(255, 203, 5, 0.8);
+  transform: scale(1.3);
+  animation: transform 1 timing-function delay iteration-count direction fill-mode;
+  filter: drop-shadow(0 0 20px #f8f8f8);
+  /* box-shadow: 0 0 10px rgba(255, 203, 5, 0.8); */
 }
 
 .pokedex-screen {
