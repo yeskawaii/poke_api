@@ -14,12 +14,10 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
   const [inputValue, setInputValue] = useState<string>("");
   const [suggestions, setSuggestions] = useState<PokemonSuggestion[]>([]);
   const [allPokemons, setAllPokemons] = useState<PokemonSuggestion[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // gel all pokemon to charge the component
   useEffect(() => {
     const fetchAllPokemons = async () => {
-      setIsLoading(true);
       try {
         const response = await getPokemons(1025); // get 1025 pokemons
         const pokemonData = response;
@@ -38,9 +36,7 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
         setAllPokemons(pokemonWithImages);
       } catch (error) {
         console.error("Error al obtener la lista de Pokémon:", error);
-      } finally {
-        setIsLoading(false);
-      }
+      } 
     };
 
     fetchAllPokemons();
