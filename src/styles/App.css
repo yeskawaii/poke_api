@@ -6,15 +6,31 @@
 }
 
 .pokedex {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   padding: 20px;
-  background: linear-gradient(135deg, #e63946, #f1faee);
+  background: #e63946;
   border: 8px solid #1d3557;
   border-radius: 20px;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
   position: relative;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pokedex-screen {
+  background-color: #457b9d;
+  width: 95%;
+  border: 5px solid #1d3557;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 @media (max-width: 768px) {
@@ -28,6 +44,10 @@
     min-height: 100vh;
     border-radius: 0;
     padding: 10px;
+  }
+
+  .pokedex-screen {
+    width: 80vw;
   }
 
   #root{
@@ -48,6 +68,10 @@
   font-size: 1.5rem;
   font-weight: bold;
   text-transform: uppercase;
+  background: #1d3557;
+  width: 85%;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .pokemon-name {
@@ -80,9 +104,8 @@
 }
 
 .pokemon-input-container {
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
+  width: 80%;
+  margin: 20px 0;
 }
 
 .pokemon-input {
@@ -177,7 +200,6 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-
 /* Contenedor de las imágenes para organizar en una fila */
 .sprites-section div {
   display: flex;
@@ -192,8 +214,6 @@
   height: auto;
   margin: 5px;
   border-radius: 10px;
-/*   border: 2px solid rgba(255, 255, 255, 0.7); 
-  background: rgba(255, 255, 255, 0.2); */
   transition: transform 0.3s ease-in-out;
 }
 
@@ -202,9 +222,4 @@
   transform: scale(1.3);
   animation: transform 1 timing-function delay iteration-count direction fill-mode;
   filter: drop-shadow(0 0 20px #f8f8f8);
-  /* box-shadow: 0 0 10px rgba(255, 203, 5, 0.8); */
-}
-
-.pokedex-screen {
-   background-color: #457b9d;
 }

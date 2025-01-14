@@ -97,8 +97,6 @@ const PokemonInput: React.FC<PokemonInputProps> = ({ onSubmit }) => {
         </button>
       </form>
 
-      {isLoading && <p>Cargando sugerencias...</p>}
-
       {suggestions.length > 0 && (
         <ul className="suggestions-list">
           {suggestions.map((suggestion) => (
